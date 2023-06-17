@@ -1,0 +1,8 @@
+{
+  "name": "AkSoft",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite",
+  "id": "3c7ddb5f"
+}
