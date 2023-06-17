@@ -33,6 +33,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Tab4 from './pages/Tab4';
 
 setupIonicReact();
 
@@ -47,8 +48,11 @@ const App: React.FC = () => (
           <Route exact path="/tab2">
             <Tab2 />
           </Route>
-          <Route path="/tab3">
+          <Route exact path="/tab3">
             <Tab3 />
+          </Route>
+          <Route path="/tab4">
+            <Tab4 />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
@@ -66,6 +70,10 @@ const App: React.FC = () => (
           <IonTabButton tab="tab3" href="/tab3">
             <IonIcon aria-hidden="true" icon={square} />
             <IonLabel>Tab 3</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab4" href="/tab4">
+            <IonIcon aria-hidden="true" icon={square} />
+            <IonLabel>Tab 4</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
