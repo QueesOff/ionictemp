@@ -70,9 +70,6 @@ const SessionDetail: React.FC<SessionDetailProps> = ({
                 <IonIcon slot="icon-only" icon={starOutline}></IonIcon>
               )}
             </IonButton>
-            <IonButton onClick={() => shareSession}>
-              <IonIcon slot="icon-only" icon={share}></IonIcon>
-            </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
@@ -94,7 +91,7 @@ const SessionDetail: React.FC<SessionDetailProps> = ({
             {session.location}
           </IonText>
         </div>
-        <IonList>
+        {/* <IonList>
           <IonItem onClick={() => sessionClick('watch')} button>
             <IonLabel color="primary">Watch</IonLabel>
           </IonItem>
@@ -116,7 +113,7 @@ const SessionDetail: React.FC<SessionDetailProps> = ({
           <IonItem onClick={() => sessionClick('leave feedback')} button>
             <IonLabel color="primary">Leave Feedback</IonLabel>
           </IonItem>
-        </IonList>
+        </IonList> */}
       </IonContent>
     </IonPage>
   );

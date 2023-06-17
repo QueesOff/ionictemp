@@ -22,7 +22,6 @@ import {
 import { options, search } from 'ionicons/icons';
 
 import SessionList from '../components/SessionList';
-import SessionListFilter from '../components/SessionListFilter';
 import './SchedulePage.scss';
 
 import ShareSocialFab from '../components/ShareSocialFab';
@@ -131,7 +130,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
       <IonContent fullscreen={true}>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Schedule</IonTitle>
+            <IonTitle size="large">GosAsis</IonTitle>
           </IonToolbar>
           <IonToolbar>
             <IonSearchbar
@@ -173,7 +172,6 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
         onDidDismiss={() => setShowFilterModal(false)}
         presentingElement={pageRef.current!}
       >
-        <SessionListFilter onDismissModal={() => setShowFilterModal(false)} />
       </IonModal>
 
       <ShareSocialFab />

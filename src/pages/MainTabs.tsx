@@ -8,7 +8,7 @@ import {
   IonLabel,
 } from '@ionic/react';
 import { Route, Redirect } from 'react-router';
-import { calendar, location, informationCircle, people } from 'ionicons/icons';
+import { home, location, person, chatbox } from 'ionicons/icons';
 import SchedulePage from './SchedulePage';
 import SpeakerList from './SpeakerList';
 import SpeakerDetail from './SpeakerDetail';
@@ -49,20 +49,20 @@ const MainTabs: React.FC<MainTabsProps> = () => {
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
         <IonTabButton tab="schedule" href="/tabs/schedule">
-          <IonIcon icon={calendar} />
-          <IonLabel>Schedule</IonLabel>
+          <IonIcon icon={home} />
+          <IonLabel>Home</IonLabel>
         </IonTabButton>
         <IonTabButton tab="speakers" href="/tabs/speakers">
-          <IonIcon icon={people} />
-          <IonLabel>Speakers</IonLabel>
+          <IonIcon icon={chatbox} />
+          <IonLabel>Chat</IonLabel>
         </IonTabButton>
         <IonTabButton tab="map" href="/tabs/map">
           <IonIcon icon={location} />
           <IonLabel>Map</IonLabel>
         </IonTabButton>
         <IonTabButton tab="about" href="/tabs/about">
-          <IonIcon icon={informationCircle} />
-          <IonLabel>About</IonLabel>
+          <IonIcon icon={person} />
+          <IonLabel>Room</IonLabel>
         </IonTabButton>
       </IonTabBar>
     </IonTabs>
