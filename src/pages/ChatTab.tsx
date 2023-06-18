@@ -1,6 +1,6 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useTranslation } from 'react-i18next';
-import { Chat } from '../components/Chat';
+import  Chat  from '../components/Chat';
 
 const ChatTab: React.FC = () => {
   const { t } = useTranslation();

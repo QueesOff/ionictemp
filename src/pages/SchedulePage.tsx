@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next';
 import { Box, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 import Weather from '../components/Weather/Weather';
 import NewsPage from '../components/NewsPage';
-import MapView from './MapView';
+;
 
 const sizes = ['full']
 
@@ -106,7 +106,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
             </IonCard>
           </Box>
 
-              {sizes.map((size) => (
+              {/* {sizes.map((size) => (
                  <Button
                  backgroundColor={'#68ce78'}
                  onClick={() => handleSizeClick(size)}
@@ -114,7 +114,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
                  w={'90%'}
                  m={5}>
                 {`Map`}</Button>
-              ))}
+              ))} */}
 
               <Modal onClose={onClose} size={size} isOpen={isOpen}>
                 <ModalOverlay />
@@ -122,7 +122,6 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
                   <ModalHeader>Modal Title</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
-                    <MapView />
                   </ModalBody>
                   <ModalFooter>
                     <Button onClick={onClose}>Close</Button>

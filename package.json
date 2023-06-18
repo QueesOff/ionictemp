@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@ionic/react": "^7.0.0",
     "@ionic/react-router": "^7.0.0",
+    "@types/string-similarity": "^4.0.0",
     "@types/uuid": "^9.0.2",
     "axios": "^1.4.0",
     "date-fns": "^2.25.0",
@@ -31,6 +32,7 @@
     "react-router-dom": "^5.3.4",
     "reselect": "^4.0.0",
     "sass": "^1.59.3",
+    "string-similarity": "^4.0.4",
     "swiper": "^9.1.1",
     "three": "^0.153.0",
     "uuid": "^9.0.0"

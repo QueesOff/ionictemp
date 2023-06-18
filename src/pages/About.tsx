@@ -9,12 +9,15 @@ import {
   Button,
   Stack,
 } from '@chakra-ui/react';
+import { useTranslation } from "react-i18next";
 
 interface HomeProps {
   name?: string;
 }
 
 const About: React.FC<HomeProps> = (props) => {
+  const { t } = useTranslation()
+
   return (
     <IonPage>
       <IonHeader>
@@ -22,7 +25,7 @@ const About: React.FC<HomeProps> = (props) => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>sdfsfd</IonTitle>
+          <IonTitle>{t('menu.room')}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -32,20 +35,6 @@ const About: React.FC<HomeProps> = (props) => {
             textAlign={'center'}
             spacing={{ base: 8, md: 14 }}
             py={{ base: 20, md: 36 }}>
-            <Heading
-              fontWeight={600}
-              fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-              lineHeight={'110%'}>
-              Make money from <br />
-              <Text as={'span'} color={'green.400'}>
-                your audience
-              </Text>
-            </Heading>
-            <Text color={'gray.500'}>
-              Monetize your content by charging your most loyal readers and reward
-              them loyalty points. Give back to your loyal readers by granting
-              them access to your pre-releases and sneak-peaks.
-            </Text>
             <Stack
               direction={'column'}
               spacing={3}
