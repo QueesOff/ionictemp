@@ -38,8 +38,8 @@ import {
   loadUserData,
 } from './data/user/user.actions';
 // import Account from './pages/Account';
-// import Login from './pages/Login';
-// import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import Support from './pages/Support';
 import Tutorial from './pages/Tutorial';
 import HomeOrTutorial from './components/HomeOrTutorial';
@@ -98,8 +98,8 @@ const IonicApp: React.FC<IonicAppProps> = ({
                 */}
             <Route path="/tabs" render={() => <MainTabs />} />
             {/* <Route path="/account" component={Account} /> */}
-            {/* <Route path="/login" component={Login} /> */}
-            {/* <Route path="/signup" component={Signup} /> */}
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
             <Route path="/support" component={Support} />
             <Route path="/tutorial" component={Tutorial} />
             <Route
