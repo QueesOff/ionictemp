@@ -1,113 +1,145 @@
-import { Box, Container, Grid, GridItem } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Container } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {
-    MainContainer,
-    ChatContainer,
-    MessageList,
-    Message,
-    MessageInput,
-    TypingIndicator,
+  MainContainer,
+  ChatContainer,
+  MessageList,
+  Message,
+  MessageInput,
+  TypingIndicator,
 } from '@chatscope/chat-ui-kit-react';
+import govData from './govData';
+import stringSimilarity from 'string-similarity';
 
-const API_KEY = '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';
-const systemMessage = {
-    role: 'system',
-    content:
-        "Explain things like you're talking to a software professional with 2 years of experience.",
-};
+const API_KEY = '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';
 
-export const Chat = () => {
-    const [messages, setMessages] = useState([
-        {
-            message: "Hello, I'm ChatGPT! Ask me anything!",
-            sentTime: 'just now',
-            sender: 'ChatGPT',
-        },
+interface MessageData {
+  message: string;
+  direction: 'incoming' | 'outgoing';
+  sentTime: string;
+  sender: string;
+  position: 0 | 1 | 2 | 3 | 'single' | 'first' | 'normal' | 'last';
+}
+
+const Chat = () => {
+  const [messages, setMessages] = useState<MessageData[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const initialResponse = "Hello, I'm ChatGPT! Ask me anything!";
+    setMessages([
+      {
+        message: initialResponse,
+        direction: 'incoming',
+        sentTime: 'just now',
+        sender: 'ChatGPT',
+        position: 'single',
+      },
     ]);
-    const [isTyping, setIsTyping] = useState(false);
+  };
 
-    const handleSend = async (message: string) => {
-        const newMessage = {
-            message,
-            direction: 'outgoing',
-            sender: 'user',
-        };
-
-        const newMessages = [...messages, newMessage];
-
-        setMessages(newMessages);
-
-        setIsTyping(true);
-        await processMessageToChatGPT(newMessages);
+  const handleSend = async (message: string) => {
+    const newMessage: MessageData = {
+      message,
+      direction: 'outgoing',
+      sentTime: 'just now',
+      sender: 'user',
+      position: 'last',
     };
 
-    async function processMessageToChatGPT(chatMessages: any[]) {
-        let apiMessages = chatMessages.map((messageObject) => {
-            let role = '';
-            if (messageObject.sender === 'ChatGPT') {
-                role = 'assistant';
-            } else {
-                role = 'user';
-            }
-            return { role: role, content: messageObject.message };
-        });
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-        const apiRequestBody = {
-            model: 'gpt-3.5-turbo',
-            messages: [systemMessage, ...apiMessages],
-        };
+    setIsTyping(true);
+    await processMessageToChatGPT([...messages, newMessage]);
+  };
 
-        await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                Authorization: 'Bearer ' + API_KEY,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(apiRequestBody),
-        })
-            .then((data) => {
-                return data.json();
-            })
-            .then((data) => {
-                console.log(data);
-                setMessages([
-                    ...chatMessages,
-                    {
-                        message: data.choices[0].message.content,
-                        sender: 'ChatGPT',
-                    },
-                ]);
-                setIsTyping(false);
-            });
+  async function processMessageToChatGPT(chatMessages: MessageData[]) {
+    const apiMessages = chatMessages.map((messageObject) => {
+      let role = '';
+      if (messageObject.sender === 'ChatGPT') {
+        role = 'assistant';
+      } else {
+        role = 'user';
+      }
+      return { role: role, content: messageObject.message };
+    });
+
+    const userMessage = apiMessages[apiMessages.length - 1].content;
+
+    const matches = stringSimilarity.findBestMatch(userMessage, Object.keys(govData));
+
+    if (matches.bestMatch.rating > 0.5) {
+      const responseMessage = govData[matches.bestMatch.target];
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          message: responseMessage,
+          sender: 'ChatGPT',
+          direction: 'incoming',
+          sentTime: 'just now',
+          position: 'last',
+        },
+      ]);
+      setIsTyping(false);
+    } else {
+      makeAPICall(apiMessages, API_KEY).then((data) => {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          {
+            message: data.choices[0].message.content,
+            sender: 'ChatGPT',
+            direction: 'incoming',
+            sentTime: 'just now',
+            position: 'last',
+          },
+        ]);
+        setIsTyping(false);
+      });
     }
+  }
 
-    return (
-        <Container>
-            <Box justifyContent="center" height="100%" pt={'15px'}>
-                <ChatContainer>
-                    <MessageList
-                        scrollBehavior="smooth"
-                        typingIndicator={
-                            isTyping ? (
-                                <TypingIndicator content="ChatGPT is typing" />
-                            ) : null
-                        }
-                    >
-                        {messages.map((message, i) => {
-                            console.log(message);
-                            return <Message key={i} model={message} />;
-                        })}
-                    </MessageList>
-                </ChatContainer>
-                <Box position={'fixed'} bottom={'0px'} bgColor={'white'} p={'5px'} pb={'5px'} w={'95%'} >
-                    <MessageInput
-                        attachButton={false}
-                        placeholder="Type message here"
-                        onSend={handleSend}
-                    />
-                </Box>
-            </Box>
-        </Container>
-    );
+  async function makeAPICall(apiMessages: any, API_KEY: string) {
+    const apiRequestBody = {
+      model: 'gpt-3.5-turbo',
+      messages: apiMessages,
+    };
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + API_KEY,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(apiRequestBody),
+    });
+
+    return response.json();
+  }
+
+  return (
+    <Container>
+      <Box justifyContent="center" height="100%" pt={'15px'}>
+        <ChatContainer>
+          <MessageList
+            scrollBehavior="smooth"
+            typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
+          >
+            {messages.map((message, i) => (
+              <Message key={i} model={message} />
+            ))}
+          </MessageList>
+        </ChatContainer>
+        <Box position={'fixed'} bottom={'0px'} bgColor={'white'} p={'5px'} pb={'5px'} w={'95%'}>
+          <MessageInput attachButton={false} placeholder="Type message here" onSend={handleSend} />
+        </Box>
+      </Box>
+    </Container>
+  );
 };
+
+export default Chat;

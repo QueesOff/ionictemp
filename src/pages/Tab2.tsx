@@ -1,5 +1,5 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { Chat } from '../components/Chat';
+import Chat from '../components/Chat';
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
@@ -11,7 +11,7 @@ const Tab2: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-          <Chat></Chat>
+        <Chat></Chat>
       </IonContent>
     </IonPage>
   );
