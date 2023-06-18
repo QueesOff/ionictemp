@@ -1,141 +1,122 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonPage,
-  IonButtons,
-  IonMenuButton,
-  IonRow,
-  IonCol,
-  IonButton,
-  IonList,
-  IonItem,
-  IonInput,
-  IonText,
-} from '@ionic/react';
-import './Login.scss';
-import { setIsLoggedIn, setUsername } from '../data/user/user.actions';
-import { connect } from '../data/connect';
-import { RouteComponentProps } from 'react-router';
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Link,
+  Checkbox,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 
-interface OwnProps extends RouteComponentProps {}
+const Login: React.FC = () => {
+  const history = useHistory();
+  const [values, setValues] = useState({
+    email: "",
+    pass: "",
+  });
+  const [errorMsg, setErrorMsg] = useState("");
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-interface DispatchProps {
-  setIsLoggedIn: typeof setIsLoggedIn;
-  setUsername: typeof setUsername;
-}
-
-interface LoginProps extends OwnProps, DispatchProps {}
-
-const Login: React.FC<LoginProps> = ({
-  setIsLoggedIn,
-  history,
-  setUsername: setUsernameAction,
-}) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [usernameError, setUsernameError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-
-  const login = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-    if (!username) {
-      setUsernameError(true);
+  const handleSubmission = () => {
+    if (!values.email || !values.pass) {
+      setErrorMsg("Fill all fields");
+      return;
     }
-    if (!password) {
-      setPasswordError(true);
-    }
+    setErrorMsg("");
 
-    if (username && password) {
-      await setIsLoggedIn(true);
-      await setUsernameAction(username);
-      history.push('/tabs/schedule', { direction: 'none' });
-    }
+    setSubmitButtonDisabled(true);
+    signInWithEmailAndPassword(auth, values.email, values.pass)
+      .then(async (res) => {
+        setSubmitButtonDisabled(false);
+
+        history.push("/");
+      })
+      .catch((err) => {
+        setSubmitButtonDisabled(false);
+        setErrorMsg(err.message);
+      });
   };
 
   return (
-    <IonPage id="login-page">
+    <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonMenuButton></IonMenuButton>
+            <IonMenuButton />
           </IonButtons>
-          <IonTitle>Login</IonTitle>
+          <IonTitle>sdfsfd</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <div className="login-logo">
-          <img src="assets/img/appicon.svg" alt="Ionic logo" />
-        </div>
-
-        <form noValidate onSubmit={login}>
-          <IonList>
-            <IonItem>
-              <IonInput
-                label="Username"
-                labelPlacement="stacked"
-                color="primary"
-                name="username"
-                type="text"
-                value={username}
-                spellCheck={false}
-                autocapitalize="off"
-                onIonInput={(e) => setUsername(e.detail.value as string)}
-                required
-              >
-                {formSubmitted && usernameError && (
-                  <IonText color="danger" slot="error">
-                    <p>Username is required</p>
-                  </IonText>
-                )}
-              </IonInput>
-            </IonItem>
-
-            <IonItem>
-              <IonInput
-                label="Password"
-                labelPlacement="stacked"
-                color="primary"
-                name="password"
-                type="password"
-                value={password}
-                onIonInput={(e) => setPassword(e.detail.value as string)}
-              >
-                {formSubmitted && passwordError && (
-                  <IonText color="danger" slot="error">
-                    <p>Password is required</p>
-                  </IonText>
-                )}
-              </IonInput>
-            </IonItem>
-          </IonList>
-
-          <IonRow>
-            <IonCol>
-              <IonButton type="submit" expand="block">
-                Login
-              </IonButton>
-            </IonCol>
-            <IonCol>
-              <IonButton routerLink="/signup" color="light" expand="block">
-                Signup
-              </IonButton>
-            </IonCol>
-          </IonRow>
-        </form>
+      <IonContent fullscreen>
+        <Flex
+          minH={'100vh'}
+          align={'center'}
+          justify={'center'}
+          bg={useColorModeValue('gray.50', 'gray.800')}>
+          <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+            <Stack align={'center'}>
+              <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+              <Text fontSize={'lg'} color={'gray.600'}>
+                to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
+              </Text>
+            </Stack>
+            <Box
+              rounded={'lg'}
+              bg={useColorModeValue('white', 'gray.700')}
+              boxShadow={'lg'}
+              p={8}>
+              <Stack spacing={4}>
+                <FormControl id="email">
+                  <FormLabel>Email address</FormLabel>
+                  <Input
+                    type="email"
+                    onChange={(event) =>
+                      setValues((prev) => ({ ...prev, email: event.target.value }))
+                    }
+                    placeholder="Enter Email"
+                  />
+                </FormControl>
+                <FormControl id="password">
+                  <FormLabel>Password</FormLabel>
+                  <Input type="password"
+                    onChange={(event) =>
+                      setValues((prev) => ({ ...prev, pass: event.target.value }))
+                    }
+                    placeholder="Enter Password" />
+                </FormControl>
+                <Stack spacing={10}>
+                  <Button
+                    bg={'blue.400'}
+                    color={'white'}
+                    _hover={{
+                      bg: 'blue.500',
+                    }}
+                    disabled={submitButtonDisabled} onClick={handleSubmission}>
+                    Sign in
+                  </Button>
+                </Stack>
+                <Stack pt={6}>
+                  <Text align={'center'}>
+                    Not registered yet ? <Link color={'blue.400'} href="/signup">SignUp</Link>
+                  </Text>
+                </Stack>
+              </Stack>
+            </Box>
+          </Stack>
+        </Flex>
       </IonContent>
     </IonPage>
   );
 };
 
-export default connect<OwnProps, {}, DispatchProps>({
-  mapDispatchToProps: {
-    setIsLoggedIn,
-    setUsername,
-  },
-  component: Login,
-});
+export default Login;

@@ -10,7 +10,7 @@ import {
 } from '@chatscope/chat-ui-kit-react';
 import { useTranslation } from 'react-i18next';
 
-const API_KEY = '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';
+const API_KEY = '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';
 const systemMessage = {
     role: 'system',
     content:
@@ -107,11 +107,18 @@ export const Chat = () => {
                     >
                         {messages.map((message, i) => {
                             console.log(message);
-                            return <Message key={i} model={message} style={{
-                                background: "transparent",
-                                marginTop: "10px",
-                                marginBottom: "10px",
-                            }} />;
+                            return (
+                                <Message
+                                    key={i}
+                                    model={message}
+                                    avatar={message.sender === 'ChatGPT' ? 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.svgrepo.com%2Fsvg%2F306500%2Fopenai&psig=AOvVaw0Tcj67lpLKgfluYMkite0a&ust=1687150049487000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNiLke6BzP8CFQAAAAAdAAAAABAE' : null} // Replace '/path/to/avatar.png' with the actual path to the avatar image
+                                    style={{
+                                        background: "transparent",
+                                        marginTop: "10px",
+                                        marginBottom: "10px",
+                                    }}
+                                />
+                            );
                         })}
                     </MessageList>
                 </ChatContainer>

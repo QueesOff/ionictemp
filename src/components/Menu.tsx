@@ -28,6 +28,7 @@ import { setDarkMode } from '../data/user/user.actions';
 import './Menu.css';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import { useColorMode } from '@chakra-ui/react';
 
 
 interface Pages {
@@ -93,7 +94,7 @@ const Menu: React.FC<MenuProps> = ({
         </IonMenuToggle>
       ));
   }
-
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <IonMenu type="overlay" disabled={!menuEnabled} contentId="main">
       <IonContent forceOverscroll={false}>
@@ -112,6 +113,7 @@ const Menu: React.FC<MenuProps> = ({
             <IonToggle
               checked={darkMode}
               onClick={() => setDarkMode(!darkMode)}
+              onChange={toggleColorMode}
             >
               {t('menu.theme')}
             </IonToggle>
