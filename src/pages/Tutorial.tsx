@@ -23,6 +23,7 @@ import {
   Stack,
   Flex
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 interface OwnProps extends RouteComponentProps { }
 interface DispatchProps {
@@ -42,6 +43,7 @@ const Tutorial: React.FC<TutorialProps> = ({
   useIonViewWillEnter(() => {
     setMenuEnabled(false);
   });
+  const { t } = useTranslation()
 
 
   const startApp = async () => {
@@ -67,20 +69,18 @@ const Tutorial: React.FC<TutorialProps> = ({
             as={Box}
             textAlign={'center'}
             spacing={{ base: 8, md: 14 }}
-            py={{ base: 20, md: 36 }}>
+            py={{ base: 10, md: 18 }}>
             <Heading
               fontWeight={600}
               fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
               lineHeight={'110%'}>
-              Make money from <br />
-              <Text as={'span'} color={'green.400'}>
-                your audience
+              Gos
+              <Text as={'span'} color={'blue.400'}>
+                Asis
               </Text>
             </Heading>
             <Text color={'gray.500'}>
-              Monetize your content by charging your most loyal readers and reward
-              them loyalty points. Give back to your loyal readers by granting
-              them access to your pre-releases and sneak-peaks.
+              {t('tutor')}
             </Text>
           </Stack>
           <Flex justify={'center'}>
