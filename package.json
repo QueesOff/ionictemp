@@ -12,6 +12,8 @@
     "@emotion/styled": "^11.11.0",
     "@ionic/react": "^7.0.0",
     "@ionic/react-router": "^7.0.0",
+    "@types/uuid": "^9.0.2",
+    "axios": "^1.4.0",
     "date-fns": "^2.25.0",
     "firebase": "^9.22.2",
     "framer-motion": "^10.12.16",
@@ -21,12 +23,14 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.0.0",
+    "react-icons": "^4.9.0",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "reselect": "^4.0.0",
     "sass": "^1.59.3",
     "swiper": "^9.1.1",
-    "three": "^0.153.0"
+    "three": "^0.153.0",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "npm run dev",

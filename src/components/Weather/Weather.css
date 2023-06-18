@@ -1,0 +1,15 @@
+.weather{
+    display: flex;
+    height: 100px;
+    gap: 20px;
+}
+.info-item{
+    display: flex;
+
+}
+.ion-inherit-color{
+    padding: 10px;
+}
+.info-item{
+
+}
