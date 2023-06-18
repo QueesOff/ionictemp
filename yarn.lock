@@ -225,6 +225,11 @@
     "@babel/helper-validator-identifier" "^7.22.5"
     to-fast-properties "^2.0.0"
 
+"@capacitor/android@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-5.0.5.tgz#61a9e3b13c7c1a489e237efee18574e2d65a4088"
+  integrity sha512-vH5Qoy+p2Egsu1GtPtOsihHcEI2fCGCIHwlUGPaXXGysudzpzWtJZ5JZNlycJyfRdjECrjkutgbNaHLog+YlXQ==
+
 "@capacitor/cli@^4.6.1":
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-4.8.0.tgz#80b856acafdffbaf3ea48dce75fe955a06cdcecf"
@@ -263,6 +268,11 @@
     "@googlemaps/js-api-loader" "~1.13.7"
     "@googlemaps/markerclusterer" "~2.0.7"
     "@types/google.maps" "~3.50.5"
+
+"@capacitor/ios@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.0.5.tgz#799c6eb3bf5988ff1e394a28d7f5caa8435460da"
+  integrity sha512-U72TPbKN1HlUqEGCOPsCBp6j93Qu1TazWUuA8Q1yfcGDfSOE0zMDNl3eU7XO5OyzpV7z9lf8NJdehimezVl7sA==
 
 "@capacitor/preferences@^4.0.2":
   version "4.0.2"
