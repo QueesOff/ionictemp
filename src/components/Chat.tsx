@@ -129,18 +129,25 @@ const Chat = () => {
   return (
     <Container>
       <Box justifyContent="center" height="100%" pt={'15px'}>
-        <ChatContainer>
+        <ChatContainer
+        style={{backgroundColor: 'transparent'}}
+        >
           <MessageList
             scrollBehavior="smooth"
-            typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
+            style={{backgroundColor: 'transparent', maxHeight:'73vh'}}
+            typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" 
+            style={{backgroundColor: 'transparent'}}
+            /> : null}
           >
             {messages.map((message, i) => (
               <Message key={i} model={message} />
             ))}
           </MessageList>
         </ChatContainer>
-        <Box position={'fixed'} bottom={'0px'} bgColor={'white'} p={'5px'} pb={'5px'} w={'95%'}>
-          <MessageInput attachButton={false} placeholder="Type message here" onSend={handleSend} />
+        <Box position={'fixed'} bottom={'0px'} bgColor={'opacity'} p={'5px'} pb={'15px'} w={'95%'}>
+          <MessageInput attachButton={false} placeholder="Type message here" onSend={handleSend} 
+                  style={{backgroundColor: 'transparent'}}
+                  />
         </Box>
       </Box>
     </Container>
