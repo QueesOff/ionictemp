@@ -12,7 +12,7 @@ import {
 import govData from './govData';
 import stringSimilarity from 'string-similarity';
 
-const API_KEY = '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';
+const API_KEY = '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';
 
 interface MessageData {
   message: string;
