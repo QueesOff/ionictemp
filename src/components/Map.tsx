@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Location } from '../models/Location';
 
 interface MapProps {
@@ -7,6 +8,7 @@ interface MapProps {
 }
 
 const Map: React.FC<MapProps> = ({ mapCenter, locations }) => {
+  const { t } = useTranslation();
   const mapEle = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map>();
 

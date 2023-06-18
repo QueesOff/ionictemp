@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
+import VoxelDogLoader from '../components/voxel-dog-loader'
 import {
   IonContent,
   IonPage,
@@ -12,17 +13,26 @@ import {
 import { arrowForward } from 'ionicons/icons';
 import { setMenuEnabled } from '../data/sessions/sessions.actions';
 import { setHasSeenTutorial } from '../data/user/user.actions';
-import './Tutorial.scss';
 import { connect } from '../data/connect';
 import { RouteComponentProps } from 'react-router';
+import {
+  Box,
+  Heading,
+  Container,
+  Text,
+  Stack,
+  Flex
+} from '@chakra-ui/react';
 
-interface OwnProps extends RouteComponentProps {}
+interface OwnProps extends RouteComponentProps { }
 interface DispatchProps {
   setHasSeenTutorial: typeof setHasSeenTutorial;
   setMenuEnabled: typeof setMenuEnabled;
 }
 
-interface TutorialProps extends OwnProps, DispatchProps {}
+interface TutorialProps extends OwnProps, DispatchProps { }
+
+const LazyVoxelDog = lazy(() => import('../components/voxel-dog'));
 
 const Tutorial: React.FC<TutorialProps> = ({
   history,
@@ -32,6 +42,7 @@ const Tutorial: React.FC<TutorialProps> = ({
   useIonViewWillEnter(() => {
     setMenuEnabled(false);
   });
+
 
   const startApp = async () => {
     await setHasSeenTutorial(true);
@@ -51,69 +62,33 @@ const Tutorial: React.FC<TutorialProps> = ({
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <div className="slider">
-          <section>
-            <div className="swiper-item">
-              <img
-                src="assets/img/ica-slidebox-img-1.png"
-                alt=""
-                className="slide-image"
-              />
-              <h2 className="slide-title">
-                Welcome to <b>ICA</b>
-              </h2>
-              <p>
-                The <b>ionic conference app</b> is a practical preview of the
-                ionic framework in action, and a demonstration of proper code
-                use.
-              </p>
-            </div>
-          </section>
-          <section>
-            <div className="swiper-item">
-              <img
-                src="assets/img/ica-slidebox-img-2.png"
-                alt=""
-                className="slide-image"
-              />
-              <h2 className="slide-title">What is Ionic?</h2>
-              <p>
-                <b>Ionic Framework</b> is an open source SDK that enables
-                developers to build high quality mobile apps with web
-                technologies like HTML, CSS, and JavaScript.
-              </p>
-            </div>
-          </section>
-          <section>
-            <div className="swiper-item">
-              <img
-                src="assets/img/ica-slidebox-img-3.png"
-                alt=""
-                className="slide-image"
-              />
-              <h2 className="slide-title">What is Ionic Appflow?</h2>
-              <p>
-                <b>Ionic Appflow</b> is a powerful set of services and features
-                built on top of Ionic Framework that brings a totally new level
-                of app development agility to mobile dev teams.
-              </p>
-            </div>
-          </section>
-          <section>
-            <div className="swiper-item">
-              <img
-                src="assets/img/ica-slidebox-img-4.png"
-                alt=""
-                className="slide-image"
-              />
-              <h2 className="slide-title">Ready to Play?</h2>
-              <IonButton fill="clear" onClick={startApp}>
-                Continue
-                <IonIcon slot="end" icon={arrowForward} />
-              </IonButton>
-            </div>
-          </section>
-        </div>
+        <Container maxW={'3xl'}>
+          <Stack
+            as={Box}
+            textAlign={'center'}
+            spacing={{ base: 8, md: 14 }}
+            py={{ base: 20, md: 36 }}>
+            <Heading
+              fontWeight={600}
+              fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+              lineHeight={'110%'}>
+              Make money from <br />
+              <Text as={'span'} color={'green.400'}>
+                your audience
+              </Text>
+            </Heading>
+            <Text color={'gray.500'}>
+              Monetize your content by charging your most loyal readers and reward
+              them loyalty points. Give back to your loyal readers by granting
+              them access to your pre-releases and sneak-peaks.
+            </Text>
+          </Stack>
+          <Flex justify={'center'}>
+            <Suspense fallback={<VoxelDogLoader />}>
+              <LazyVoxelDog />
+            </Suspense>
+          </Flex>
+        </Container>
       </IonContent>
     </IonPage>
   );

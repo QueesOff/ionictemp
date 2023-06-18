@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@capacitor/core": "^4.6.1",
+    "@capacitor/google-maps": "^5.1.2",
     "@capacitor/preferences": "^4.0.2",
     "@chakra-ui/react": "^2.7.0",
+    "@chatscope/chat-ui-kit-react": "^1.10.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@ionic/react": "^7.0.0",
@@ -14,14 +16,17 @@
     "firebase": "^9.22.2",
     "framer-motion": "^10.12.16",
     "fs": "^0.0.1-security",
+    "i18next": "^23.1.0",
     "ionicons": "^5.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^13.0.0",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "reselect": "^4.0.0",
     "sass": "^1.59.3",
-    "swiper": "^9.1.1"
+    "swiper": "^9.1.1",
+    "three": "^0.153.0"
   },
   "scripts": {
     "start": "npm run dev",

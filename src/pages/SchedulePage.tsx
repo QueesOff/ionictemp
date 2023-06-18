@@ -30,8 +30,9 @@ import * as selectors from '../data/selectors';
 import { connect } from '../data/connect';
 import { setSearchText } from '../data/sessions/sessions.actions';
 import { Schedule } from '../models/Schedule';
+import { useTranslation } from 'react-i18next';
 
-interface OwnProps {}
+interface OwnProps { }
 
 interface StateProps {
   schedule: Schedule;
@@ -67,7 +68,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
       setShowCompleteToast(true);
     }, 2500);
   };
-
+  const { t } = useTranslation();
   return (
     <IonPage ref={pageRef} id="schedule-page">
       <IonHeader translucent={true}>
@@ -86,7 +87,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
               <IonSegmentButton value="favorites">Favorites</IonSegmentButton>
             </IonSegment>
           )}
-          {!ios && !showSearchbar && <IonTitle>Schedule</IonTitle>}
+          {!ios && !showSearchbar && <IonTitle>{t('menu.home')}</IonTitle>}
           {showSearchbar && (
             <IonSearchbar
               showCancelButton="always"
@@ -100,15 +101,6 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
             {!ios && !showSearchbar && (
               <IonButton onClick={() => setShowSearchbar(true)}>
                 <IonIcon slot="icon-only" icon={search}></IonIcon>
-              </IonButton>
-            )}
-            {!showSearchbar && (
-              <IonButton onClick={() => setShowFilterModal(true)}>
-                {mode === 'ios' ? (
-                  'Filter'
-                ) : (
-                  <IonIcon icon={options} slot="icon-only" />
-                )}
               </IonButton>
             )}
           </IonButtons>

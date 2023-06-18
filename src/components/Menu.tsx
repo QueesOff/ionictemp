@@ -13,42 +13,22 @@ import {
   IonToggle,
 } from '@ionic/react';
 import {
-  calendarOutline,
   hammer,
   moonOutline,
-  help,
-  informationCircleOutline,
-  logIn,
-  logOut,
-  mapOutline,
-  peopleOutline,
   person,
-  personAdd,
+  language,
+  home,
+  chatbox,
+  map
 } from 'ionicons/icons';
 
 import { connect } from '../data/connect';
 import { setDarkMode } from '../data/user/user.actions';
 
 import './Menu.css';
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 
-const routes = {
-  appPages: [
-    { title: 'Schedule', path: '/tabs/schedule', icon: calendarOutline },
-    { title: 'Speakers', path: '/tabs/speakers', icon: peopleOutline },
-    { title: 'Map', path: '/tabs/map', icon: mapOutline },
-    { title: 'About', path: '/tabs/about', icon: informationCircleOutline },
-  ],
-  loggedInPages: [
-    { title: 'Account', path: '/account', icon: person },
-    { title: 'Support', path: '/support', icon: help },
-    { title: 'Logout', path: '/logout', icon: logOut },
-  ],
-  loggedOutPages: [
-    { title: 'Login', path: '/login', icon: logIn },
-    { title: 'Support', path: '/support', icon: help },
-    { title: 'Signup', path: '/signup', icon: personAdd },
-  ],
-};
 
 interface Pages {
   title: string;
@@ -66,17 +46,34 @@ interface DispatchProps {
   setDarkMode: typeof setDarkMode;
 }
 
-interface MenuProps extends RouteComponentProps, StateProps, DispatchProps {}
+interface MenuProps extends RouteComponentProps, StateProps, DispatchProps { }
 
 const Menu: React.FC<MenuProps> = ({
   darkMode,
   history,
-  isAuthenticated,
   setDarkMode,
   menuEnabled,
 }) => {
-  const location = useLocation();
 
+  const location = useLocation();
+  const { t } = useTranslation();
+
+  const routes = {
+    appPages: [
+      { title: t('menu.home'), path: '/tabs/schedule', icon: home },
+      { title: t('menu.chat'), path: '/tabs/speakers', icon: chatbox },
+      { title: t('menu.map'), path: '/tabs/map', icon: map },
+      { title: t('menu.room'), path: '/tabs/about', icon: person },
+    ]
+  };
+
+
+
+
+  const handleLanguageToggle = () => {
+    const newLanguage = i18n.language === 'kg' ? 'ru' : 'kg';
+    i18n.changeLanguage(newLanguage);
+  };
   function renderlistItems(list: Pages[]) {
     return list
       .filter((route) => !!route.path)
@@ -101,14 +98,11 @@ const Menu: React.FC<MenuProps> = ({
     <IonMenu type="overlay" disabled={!menuEnabled} contentId="main">
       <IonContent forceOverscroll={false}>
         <IonList lines="none">
-          <IonListHeader>Conference</IonListHeader>
+          <IonListHeader>{t('menu.pages')}</IonListHeader>
           {renderlistItems(routes.appPages)}
         </IonList>
         <IonList lines="none">
-          <IonListHeader>Account</IonListHeader>
-          {isAuthenticated
-            ? renderlistItems(routes.loggedInPages)
-            : renderlistItems(routes.loggedOutPages)}
+          <IonListHeader>{t('menu.switches')}</IonListHeader>
           <IonItem>
             <IonIcon
               slot="start"
@@ -119,12 +113,25 @@ const Menu: React.FC<MenuProps> = ({
               checked={darkMode}
               onClick={() => setDarkMode(!darkMode)}
             >
-              Dark Mode
+              {t('menu.theme')}
+            </IonToggle>
+          </IonItem>
+          <IonItem>
+            <IonIcon
+              slot="start"
+              icon={language}
+              aria-hidden="true"
+            ></IonIcon>
+            <IonToggle checked={i18n.language === 'ru'} onIonChange={handleLanguageToggle}>
+              {t('menu.lng')}
             </IonToggle>
           </IonItem>
         </IonList>
+
         <IonList lines="none">
-          <IonListHeader>Tutorial</IonListHeader>
+          <IonListHeader>
+            {t('menu.titleTutor')}
+          </IonListHeader>
           <IonItem
             button
             onClick={() => {
@@ -132,7 +139,7 @@ const Menu: React.FC<MenuProps> = ({
             }}
           >
             <IonIcon slot="start" icon={hammer} />
-            Show Tutorial
+            {t('menu.tutor')}
           </IonItem>
         </IonList>
       </IonContent>
