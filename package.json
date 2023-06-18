@@ -8,6 +8,7 @@
     "@capacitor/google-maps": "^5.1.2",
     "@capacitor/ios": "^5.0.5",
     "@capacitor/preferences": "^4.0.2",
+    "@chakra-ui/icons": "^2.0.19",
     "@chakra-ui/react": "^2.7.0",
     "@chatscope/chat-ui-kit-react": "^1.10.1",
     "@emotion/react": "^11.11.1",
