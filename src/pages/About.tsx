@@ -21,13 +21,10 @@ import './About.scss';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import AboutPopover from '../components/AboutPopover';
 import { format, parseISO } from 'date-fns';
-import AddNewsPage from '../components/AddNewsPage';
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 
 interface AboutProps {}
 
 const About: React.FC<AboutProps> = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
   const [showPopover, setShowPopover] = useState(false);
   const [popoverEvent, setPopoverEvent] = useState<MouseEvent>();
   const [location, setLocation] = useState<
@@ -142,20 +139,21 @@ const About: React.FC<AboutProps> = () => {
               </IonPopover>
             </IonItem>
           </IonList>
-          <Button onClick={onOpen}>admin</Button>
-            <Modal onClose={onClose} isOpen={isOpen} isCentered>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Modal Title</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                  <AddNewsPage />
-                </ModalBody>
-                <ModalFooter>
-                  <Button onClick={onClose}>Close</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+
+          <h3 className="ion-padding-top ion-padding-start">Internet</h3>
+
+          <IonList lines="none">
+            <IonItem>
+              <IonLabel>Wifi network</IonLabel>
+              <IonLabel className="ion-text-end">
+                ica{displayDate(conferenceDate, 'y')}
+              </IonLabel>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Password</IonLabel>
+              <IonLabel className="ion-text-end">makegoodthings</IonLabel>
+            </IonItem>
+          </IonList>
         </div>
       </IonContent>
 
