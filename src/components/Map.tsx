@@ -13,7 +13,8 @@ const Map: React.FC<MapProps> = ({ mapCenter, locations }) => {
   const map = useRef<google.maps.Map>();
 
   useEffect(() => {
-    map.current = new google.maps.Map(mapEle.current, {
+  
+    map.current = new google.maps.Map(mapEle.current as HTMLElement, {
       center: {
         lat: mapCenter.lat,
         lng: mapCenter.lng,

@@ -20,14 +20,15 @@ export function loadGLTFModel(
         obj.name = 'dog';
         obj.position.y = 0;
         obj.position.x = 0;
-        obj.receiveShadow = receiveShadow;
-        obj.castShadow = castShadow;
+        obj.receiveShadow = receiveShadow ?? false;
+        obj.castShadow = castShadow ?? false;
+
         scene.add(obj);
 
         obj.traverse(function (child) {
-          if (child.isMesh) {
-            child.castShadow = castShadow;
-            child.receiveShadow = receiveShadow;
+          if ((child as THREE.Mesh).isMesh)  {
+            child.castShadow = castShadow || false;
+            child.receiveShadow = receiveShadow || false;
           }
         });
         resolve(obj);

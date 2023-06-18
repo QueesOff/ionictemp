@@ -5,8 +5,9 @@ import MarkerInfoWindow from '../components/MarkerInfoWindow';
 import './MapView.css'
 import { Button, Flex, Input, useToast } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-
+// @ts-ignore
 const MapView = () => {
+  // @ts-ignore
   const { t } = useTranslation();
 
   const markers = [
@@ -69,20 +70,22 @@ const MapView = () => {
   ];
 
   const key = 'YOUR_API_KEY';
+  // @ts-ignore
   let newMap;
   const mapRef = useRef(null);
   const toast = useToast();
 
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [searchValue, setSearchValue] = useState('');
-
+// @ts-ignore
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
   };
-
+// @ts-ignore
   const searchPlace = () => {
     const searchedMarker = markers.find((marker) => marker.name.toLowerCase().includes(searchValue.toLowerCase()));
     if (searchedMarker) {
+      // @ts-ignore
       setSelectedMarker(searchedMarker);
       present(modalOptions);
     } else {
@@ -113,13 +116,15 @@ const MapView = () => {
       lng: markers[0].lng
     }
   });
-
+// @ts-ignore
   const markerClick = (marker) => {
+    // @ts-ignore
     setSelectedMarker(markers.filter((m) => m.lat === marker.latitude && m.lng === marker.longitude)[0]);
     present(modalOptions);
   };
-
+// @ts-ignore
   const addMapMarker = async (marker) => {
+    // @ts-ignore
     await newMap.addMarker({
       coordinate: {
         lat: marker.lat,
