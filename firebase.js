@@ -3,12 +3,13 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage'; 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAfFECCfso2NhnO4cT3i4k7vMdrGDD8MDk",
-  authDomain: "fitness-4c7c2.firebaseapp.com",
-  projectId: "fitness-4c7c2",
-  storageBucket: "fitness-4c7c2.appspot.com",
-  messagingSenderId: "374278895030",
-  appId: "1:374278895030:web:1a94e4b8215f491f9e3d17"
+  apiKey: "AIzaSyDzi3o1_XUfOG2w7jqOUXAH4VE9QLs2NTA",
+  authDomain: "lama-1285f.firebaseapp.com",
+  projectId: "lama-1285f",
+  storageBucket: "lama-1285f.appspot.com",
+  messagingSenderId: "737663715257",
+  appId: "1:737663715257:web:7d238cdc8d7d2b101ed868",
+  measurementId: "G-X4PCCL097Z"
 };
 
 firebase.initializeApp(firebaseConfig);
